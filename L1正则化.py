@@ -1,5 +1,5 @@
 import numpy as np
-
+np.random.seed(42)
 X = np.random.rand(100, 3)
 Y = X.dot(np.array([10, 20, 30])) + 40 + np.random.randn(100) * 5
 
