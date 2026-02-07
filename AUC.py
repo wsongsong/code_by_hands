@@ -15,13 +15,19 @@ def auc(y_true, y_score):
     # 计算TPR和FPR
     TPR = np.cumsum(y_true_sorted) / P
     FPR = np.cumsum(1 - y_true_sorted) / N
-
-    print("TPR:", TPR)
-    print("FPR:", FPR)  
     
     # 计算AUC
     auc_value = np.trapz(TPR, FPR)
     
     return auc_value
 
-print("AUC:", auc(y_true, y_score))
+def auc2(y_true, y_score):
+    ranks = enumerate(sorted(zip(y_true, y_score), key=lambda x:x[-1]), start=1)
+    pos_ranks = [x[0] for x in ranks if x[1][0]==1]
+    M = sum(y_true)
+    N = len(y_true)-M
+    auc = (sum(pos_ranks)-M*(M+1)/2)/(M*N)
+    return auc
+
+
+print("AUC:", auc(y_true, y_score), auc2(y_true, y_score))
