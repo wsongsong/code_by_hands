@@ -3,6 +3,7 @@ import numpy as np
 y_true =  [0,   0,   1,   1,   0,   1,   0,   1,   1,   1]
 y_score = [0.1, 0.4, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 0.9, 0.9]
 
+# 计算AUC的函数，使用ROC曲线下面积的方法来计算AUC值
 def auc(y_true, y_score):
     # 将y_true和y_score按照y_score从大到小排序
     sorted_indices = np.argsort(y_score)[::-1]
@@ -21,6 +22,7 @@ def auc(y_true, y_score):
     
     return auc_value
 
+# 另一种计算AUC的方法，使用秩次的方法来计算AUC值
 def auc2(y_true, y_score):
     ranks = enumerate(sorted(zip(y_true, y_score), key=lambda x:x[-1]), start=1)
     pos_ranks = [x[0] for x in ranks if x[1][0]==1]
